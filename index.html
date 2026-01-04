@@ -5,20 +5,17 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/icon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- SEO Meta Tags -->
   <meta name="description" content="Netlivy News" />
   <meta name="keywords" content="Netlivy NewsNow" />
   <meta name="author" content="NewsNow" />
   <meta name="robots" content="index, follow" />
 
-  <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Netlivy NewsNow - " />
   <meta property="og:description" content="" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://newsnow.busiyi.world" />
   <meta property="og:image" content="https://newsnow.busiyi.world/og-image.png" />
 
-  <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="NewsNow" />
   <meta name="twitter:description" content="" />
@@ -28,18 +25,16 @@
   <link rel="preload" href="/Baloo2-Bold.subset.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 
-  <!-- Schema.org markup for Google -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "NewsNow",
       "url": "https://newsnow.busiyi.world",
-      "description": "",
+      "description": ""
     }
   </script>
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EL9HHYE5LC"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -57,17 +52,133 @@
     }
   </script>
   <title>Netlivy News</title>
+
+  <style>
+    /* Google-ning asl vidjetini yashirish */
+    #google_translate_element, .goog-te-banner-frame, .skiptranslate {
+      display: none !important;
+    }
+    body { top: 0px !important; }
+
+    .pro-translate-wrapper {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 9999;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    .lang-btn {
+      background: rgba(241, 77, 66, 0.15); /* Sayt rangiga mos shaffoflik */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(241, 77, 66, 0.3);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .lang-btn:hover {
+      background: #F14D42;
+      transform: translateY(-2px);
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 14px;
+      min-width: 160px;
+      overflow: hidden;
+      display: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      animation: slideIn 0.2s ease-out;
+    }
+
+    .lang-dropdown.show { display: block; }
+
+    .lang-item {
+      padding: 12px 16px;
+      color: #eee;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .lang-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #F14D42;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="pro-translate-wrapper">
+    <button class="lang-btn" onclick="toggleLangMenu()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+      <span id="selected-lang">Tilni tanlang</span>
+    </button>
+    <div class="lang-dropdown" id="langMenu">
+      <div class="lang-item" onclick="changeLanguage('zh-CN', 'Xitoycha')">CN <span>中文</span></div>
+      <div class="lang-item" onclick="changeLanguage('uz', 'O\'zbekcha')">UZ <span>O'zbek</span></div>
+      <div class="lang-item" onclick="changeLanguage('en', 'English')">EN <span>English</span></div>
+    </div>
+  </div>
+
   <div id="google_translate_element"></div>
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'zh-CN', includedLanguages: 'uz', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<div id="app"></div>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'zh-CN', 
+        includedLanguages: 'uz,en,zh-CN', 
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function toggleLangMenu() {
+      document.getElementById('langMenu').classList.toggle('show');
+    }
+
+    function changeLanguage(langCode, langName) {
+      const googleSelect = document.querySelector('.goog-te-combo');
+      if (googleSelect) {
+        googleSelect.value = langCode;
+        googleSelect.dispatchEvent(new Event('change'));
+        document.getElementById('selected-lang').innerText = langName;
+      }
+      toggleLangMenu();
+    }
+
+    // Tashqariga bosilganda menyuni yopish
+    window.onclick = function(event) {
+      if (!event.target.closest('.pro-translate-wrapper')) {
+        document.getElementById('langMenu').classList.remove('show');
+      }
+    }
+  </script>
+  
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <div id="app"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 
