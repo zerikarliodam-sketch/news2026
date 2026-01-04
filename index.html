@@ -54,128 +54,129 @@
   <title>Netlivy News</title>
 
   <style>
-    /* Google-ning asl vidjetini yashirish */
-    #google_translate_element, .goog-te-banner-frame, .skiptranslate {
+    /* 1. Google oq panelini va barcha elementlarini butkul yashirish */
+    iframe.goog-te-banner-frame, 
+    .goog-te-banner-frame, 
+    .goog-te-balloon-frame, 
+    #goog-gt-tt, 
+    .goog-te-balloon-frame.skiptranslate,
+    .goog-te-gadget-icon,
+    #google_translate_element {
       display: none !important;
+      visibility: hidden !important;
     }
-    body { top: 0px !important; }
 
-    .pro-translate-wrapper {
+    /* 2. Google Translate o'zidan qoldiradigan bo'sh joyni yo'qotish */
+    body {
+      top: 0 !important;
+      position: static !important;
+    }
+
+    /* 3. Ultra Pro Dizayn: Shaffof va zamonaviy til tanlagich */
+    .pro-lang-switcher {
       position: fixed;
-      top: 15px;
-      right: 15px;
-      z-index: 9999;
-      font-family: 'Inter', system-ui, sans-serif;
+      top: 12px;
+      right: 12px;
+      z-index: 999999;
     }
 
     .lang-btn {
-      background: rgba(241, 77, 66, 0.15); /* Sayt rangiga mos shaffoflik */
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(241, 77, 66, 0.3);
+      background: rgba(241, 77, 66, 0.2);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #fff;
-      padding: 8px 16px;
-      border-radius: 12px;
+      padding: 8px 14px;
+      border-radius: 10px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.3s ease;
+      font-size: 14px;
       font-weight: 500;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: 0.3s;
     }
 
     .lang-btn:hover {
       background: #F14D42;
-      transform: translateY(-2px);
     }
 
-    .lang-dropdown {
+    .lang-menu {
       position: absolute;
-      top: 50px;
+      top: 45px;
       right: 0;
-      background: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 14px;
-      min-width: 160px;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 12px;
       overflow: hidden;
       display: none;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      animation: slideIn 0.2s ease-out;
+      width: 140px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     }
 
-    .lang-dropdown.show { display: block; }
+    .lang-menu.open { display: block; }
 
     .lang-item {
-      padding: 12px 16px;
-      color: #eee;
+      padding: 10px 16px;
+      color: #d4d4d8;
       cursor: pointer;
       transition: 0.2s;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 14px;
     }
 
     .lang-item:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: #27272a;
       color: #F14D42;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 
 <body>
-  <div class="pro-translate-wrapper">
-    <button class="lang-btn" onclick="toggleLangMenu()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-      <span id="selected-lang">Tilni tanlang</span>
+  <div class="pro-lang-switcher">
+    <button class="lang-btn" onclick="toggleMenu()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+      <span id="current-lang">O'zbek</span>
     </button>
-    <div class="lang-dropdown" id="langMenu">
-      <div class="lang-item" onclick="changeLanguage('zh-CN', 'Xitoycha')">CN <span>中文</span></div>
-      <div class="lang-item" onclick="changeLanguage('uz', 'O\'zbekcha')">UZ <span>O'zbek</span></div>
-      <div class="lang-item" onclick="changeLanguage('en', 'English')">EN <span>English</span></div>
+    <div class="lang-menu" id="langMenu">
+      <div class="lang-item" onclick="setLanguage('uz', 'O\'zbek')">O'zbekcha</div>
+      <div class="lang-item" onclick="setLanguage('zh-CN', 'Xitoycha')">Xitoycha</div>
+      <div class="lang-item" onclick="setLanguage('en', 'English')">English</div>
     </div>
   </div>
 
-  <div id="google_translate_element"></div>
+  <div id="google_translate_element" style="display:none"></div>
 
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
         pageLanguage: 'zh-CN', 
-        includedLanguages: 'uz,en,zh-CN', 
+        includedLanguages: 'uz,en,zh-CN',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
       }, 'google_translate_element');
     }
 
-    function toggleLangMenu() {
-      document.getElementById('langMenu').classList.toggle('show');
+    function toggleMenu() {
+      document.getElementById('langMenu').classList.toggle('open');
     }
 
-    function changeLanguage(langCode, langName) {
-      const googleSelect = document.querySelector('.goog-te-combo');
-      if (googleSelect) {
-        googleSelect.value = langCode;
-        googleSelect.dispatchEvent(new Event('change'));
-        document.getElementById('selected-lang').innerText = langName;
+    function setLanguage(code, label) {
+      const select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = code;
+        select.dispatchEvent(new Event('change'));
+        document.getElementById('current-lang').innerText = label;
       }
-      toggleLangMenu();
+      toggleMenu();
     }
 
-    // Tashqariga bosilganda menyuni yopish
-    window.onclick = function(event) {
-      if (!event.target.closest('.pro-translate-wrapper')) {
-        document.getElementById('langMenu').classList.remove('show');
+    // Tashqariga bosilganda yopish
+    window.addEventListener('click', function(e) {
+      if (!document.querySelector('.pro-lang-switcher').contains(e.target)) {
+        document.getElementById('langMenu').classList.remove('open');
       }
-    }
+    });
   </script>
-  
+
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <div id="app"></div>
