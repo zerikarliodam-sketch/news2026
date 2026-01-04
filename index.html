@@ -11,16 +11,16 @@
   <title>Netlivy News</title>
 
   <style>
-    /* 1. GOOGLE OQ PANELINI MAJBURIY YO'QOTISH */
-    iframe.goog-te-banner-frame, 
+    /* 1. OQ PANELNI VA GOOGLE ELEMENTLARINI MAJBURIY YO'QOTISH */
+    #google_translate_element, 
     .goog-te-banner-frame, 
     .goog-te-balloon-frame, 
     #goog-gt-tt, 
-    .goog-te-gadget-icon,
-    #google_translate_element,
-    .skiptranslate {
+    .skiptranslate, 
+    .goog-te-spinner-pos {
       display: none !important;
       visibility: hidden !important;
+      opacity: 0 !important;
     }
 
     body {
@@ -29,15 +29,15 @@
     }
 
     /* 2. ULTRA PRO DESIGN */
-    .pro-translate-container {
+    .pro-translate-ui {
       position: fixed;
       top: 15px;
       right: 15px;
-      z-index: 999999;
+      z-index: 2147483647; /* Eng yuqori daraja */
     }
 
-    .pro-lang-btn {
-      background: rgba(241, 77, 66, 0.25);
+    .pro-btn {
+      background: rgba(241, 77, 66, 0.3);
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -49,10 +49,13 @@
       align-items: center;
       gap: 10px;
       font-weight: 600;
+      transition: 0.3s;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
-    .pro-dropdown {
+    .pro-btn:hover { background: #F14D42; }
+
+    .pro-menu {
       position: absolute;
       top: 55px;
       right: 0;
@@ -62,40 +65,40 @@
       width: 160px;
       display: none;
       box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      overflow: hidden;
     }
 
-    .pro-dropdown.active { display: block; }
+    .pro-menu.show { display: block; }
 
-    .pro-lang-option {
+    .pro-item {
       padding: 12px 16px;
       color: #e4e4e7;
       cursor: pointer;
+      transition: 0.2s;
       border-bottom: 1px solid #27272a;
     }
 
-    .pro-lang-option:hover {
-      background: #27272a;
-      color: #F14D42;
-    }
+    .pro-item:hover { background: #27272a; color: #F14D42; }
   </style>
 </head>
 
 <body>
-  <div class="pro-translate-container">
-    <button class="pro-lang-btn" onclick="toggleProMenu()">
+  <div class="pro-translate-ui">
+    <button class="pro-btn" onclick="document.getElementById('pMenu').classList.toggle('show')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-      <span id="active-lang-text">O'zbekcha</span>
+      <span id="pLang">Tilni tanlang</span>
     </button>
-    <div class="pro-dropdown" id="proLangMenu">
-      <div class="pro-lang-option" onclick="doTranslate('uz', 'O\'zbekcha')">O'zbekcha</div>
-      <div class="pro-lang-option" onclick="doTranslate('zh-CN', 'Xitoycha')">Xitoycha</div>
-      <div class="pro-lang-option" onclick="doTranslate('en', 'English')">English</div>
+    <div class="pro-menu" id="pMenu">
+      <div class="pro-item" onclick="runTranslate('uz', 'O\'zbekcha')">O'zbekcha</div>
+      <div class="pro-item" onclick="runTranslate('zh-CN', 'Xitoycha')">Xitoycha</div>
+      <div class="pro-item" onclick="runTranslate('en', 'English')">English</div>
     </div>
   </div>
 
   <div id="google_translate_element" style="display:none !important;"></div>
 
   <script type="text/javascript">
+    // 1. Google elementini init qilish
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
         pageLanguage: 'zh-CN',
@@ -104,34 +107,36 @@
       }, 'google_translate_element');
     }
 
-    function toggleProMenu() {
-      document.getElementById('proLangMenu').classList.toggle('active');
-    }
-
-    function doTranslate(langCode, langName) {
-      // GitHub Pages uchun xavfsizroq va qayta-qayta urinadigan funksiya
-      let attempts = 0;
-      const maxAttempts = 20;
-
-      const translateInterval = setInterval(() => {
-        const googleSelect = document.querySelector('.goog-te-combo');
-        if (googleSelect) {
-          googleSelect.value = langCode;
-          googleSelect.dispatchEvent(new Event('change'));
-          document.getElementById('active-lang-text').innerText = langName;
-          clearInterval(translateInterval);
-        }
+    // 2. React/Vite uchun maxsus "Force Translate" funksiyasi
+    function runTranslate(code, name) {
+      // Menyu yopish
+      document.getElementById('pMenu').classList.remove('show');
+      
+      // Google combobox ni topish va qiymat berish
+      const select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = code;
+        select.dispatchEvent(new Event('change')); // Tarjimani majburlash
+        document.getElementById('pLang').innerText = name;
         
-        attempts++;
-        if (attempts >= maxAttempts) clearInterval(translateInterval);
-      }, 300);
-
-      toggleProMenu();
+        // Tanlangandan so'ng yana bir bor oq panelni yashirishni tasdiqlash
+        setTimeout(hideGoogleUI, 500);
+      } else {
+        // Agar Google hali yuklanmagan bo'lsa, yana urinib ko'rish
+        setTimeout(() => runTranslate(code, name), 500);
+      }
     }
 
-    window.onclick = function(event) {
-      if (!event.target.closest('.pro-translate-container')) {
-        document.getElementById('proLangMenu').classList.remove('active');
+    function hideGoogleUI() {
+      const banner = document.querySelector('.goog-te-banner-frame');
+      if (banner) banner.style.display = 'none';
+      document.body.style.top = '0';
+    }
+
+    // Tashqariga bosilganda yopish
+    window.onclick = (e) => {
+      if (!e.target.closest('.pro-translate-ui')) {
+        document.getElementById('pMenu').classList.remove('show');
       }
     }
   </script>
