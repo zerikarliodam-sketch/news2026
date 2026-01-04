@@ -54,8 +54,8 @@ export function Header() {
           <span className="text-2xl font-brand line-height-none!">
          
             <p className="mt--1">
-              <span className="color-primary-6">N</span>
-              <span>ETLIVY</span>
+              <span className="color-primary-6">NETLIVY</span>
+              <span>NEWS</span>
             </p>
           </span>
         </Link>
