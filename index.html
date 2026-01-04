@@ -5,221 +5,150 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/icon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
   <meta name="description" content="Netlivy News" />
-  <meta name="keywords" content="Netlivy NewsNow" />
-  <meta name="author" content="NewsNow" />
-  <meta name="robots" content="index, follow" />
-
-  <meta property="og:title" content="Netlivy NewsNow - " />
-  <meta property="og:description" content="" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://newsnow.busiyi.world" />
-  <meta property="og:image" content="https://newsnow.busiyi.world/og-image.png" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="NewsNow" />
-  <meta name="twitter:description" content="" />
-  <meta name="twitter:image" content="https://newsnow.busiyi.world/og-image.svg" />
-
   <meta name="theme-color" content="#F14D42" />
   <link rel="preload" href="/Baloo2-Bold.subset.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "NewsNow",
-      "url": "https://newsnow.busiyi.world",
-      "description": ""
-    }
-  </script>
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EL9HHYE5LC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-EL9HHYE5LC');
-  </script>
-
-  <script>
-    const query = new URLSearchParams(window.location.search)
-    if (query.has("login") && query.has("user") && query.has("jwt")) {
-      localStorage.setItem("user", query.get("user"))
-      localStorage.setItem("jwt", JSON.stringify(query.get("jwt")))
-      window.history.replaceState({}, document.title, window.location.pathname)
-    }
-  </script>
   <title>Netlivy News</title>
 
   <style>
-    /* 1. SKRINSHOTDAGI OQ PANELNI VA GOOGLE ELEMENTLARINI BUTKUL YASHIRISH */
+    /* 1. SKRINSHOTDAGI OQ PANELNI BUTKUL BLOKLASH */
     iframe.goog-te-banner-frame, 
     .goog-te-banner-frame, 
     .goog-te-balloon-frame, 
     #goog-gt-tt, 
-    .goog-te-balloon-frame.skiptranslate,
     .goog-te-gadget-icon,
-    #google_translate_element {
+    #google_translate_element,
+    .skiptranslate {
       display: none !important;
       visibility: hidden !important;
     }
 
-    /* Google qoldiradigan bo'sh joyni yo'qotish */
     body {
       top: 0 !important;
       position: static !important;
     }
 
-    /* 2. ULTRA PRO TRANSLATE UI */
+    /* 2. ULTRA PRO DESIGN */
     .pro-translate-container {
       position: fixed;
       top: 15px;
       right: 15px;
-      z-index: 100000;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      z-index: 999999; /* Saytning hamma elementidan ustun bo'lishi uchun */
+      font-family: sans-serif;
     }
 
     .pro-lang-btn {
-      background: rgba(241, 77, 66, 0.2);
+      background: rgba(241, 77, 66, 0.25);
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: white;
-      padding: 10px 16px;
+      padding: 10px 18px;
       border-radius: 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 14px;
       font-weight: 600;
-      transition: all 0.3s ease;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
     }
 
     .pro-lang-btn:hover {
       background: #F14D42;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(241, 77, 66, 0.4);
     }
 
     .pro-dropdown {
       position: absolute;
       top: 55px;
       right: 0;
-      background: #121214;
-      border: 1px solid #27272a;
+      background: #18181b;
+      border: 1px solid #3f3f46;
       border-radius: 14px;
-      width: 170px;
-      overflow: hidden;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      width: 160px;
+      display: none;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      z-index: 1000000;
     }
 
     .pro-dropdown.active {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+      display: block;
     }
 
     .pro-lang-option {
       padding: 12px 16px;
-      color: #a1a1aa;
+      color: #e4e4e7;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       transition: 0.2s;
-      font-size: 14px;
+      border-bottom: 1px solid #27272a;
     }
+
+    .pro-lang-option:last-child { border-bottom: none; }
 
     .pro-lang-option:hover {
       background: #27272a;
       color: #F14D42;
-    }
-
-    .pro-lang-option.selected {
-      color: white;
-      background: rgba(241, 77, 66, 0.1);
-    }
-
-    /* Icon uslubi */
-    .lang-icon {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
     }
   </style>
 </head>
 
 <body>
   <div class="pro-translate-container">
-    <div class="pro-lang-btn" onclick="toggleProMenu()">
-      <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="2" y1="12" x2="22" y2="12"></line>
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-      </svg>
-      <span id="active-lang-text">O'bekcha</span>
-    </div>
-
+    <button class="pro-lang-btn" onclick="toggleProMenu()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+      <span id="active-lang-text">O'zbekcha</span>
+    </button>
     <div class="pro-dropdown" id="proLangMenu">
-      <div class="pro-lang-option" onclick="triggerGoogleTranslate('uz', 'O\'zbekcha')">
-        O'zbekcha <span>UZ</span>
-      </div>
-      <div class="pro-lang-option" onclick="triggerGoogleTranslate('zh-CN', 'Xitoycha')">
-        Xitoycha <span>CN</span>
-      </div>
-      <div class="pro-lang-option" onclick="triggerGoogleTranslate('en', 'English')">
-        English <span>EN</span>
-      </div>
+      <div class="pro-lang-option" onclick="doTranslate('uz', 'O\'zbekcha')">O'zbekcha</div>
+      <div class="pro-lang-option" onclick="doTranslate('zh-CN', 'Xitoycha')">Xitoycha</div>
+      <div class="pro-lang-option" onclick="doTranslate('en', 'English')">English</div>
     </div>
   </div>
 
-  <div id="google_translate_element"></div>
+  <div id="google_translate_element" style="display:none !important;"></div>
 
   <script type="text/javascript">
-    // Google Translate-ni sozlash
+    // 1. Google elementini yuklash
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
-        pageLanguage: 'zh-CN', // Saytning asl tili
+        pageLanguage: 'zh-CN',
         includedLanguages: 'uz,en,zh-CN',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
       }, 'google_translate_element');
     }
 
-    // Menyu ochish/yopish
+    // 2. Menyuni boshqarish
     function toggleProMenu() {
       document.getElementById('proLangMenu').classList.toggle('active');
     }
 
-    // TARJIMA QILISH FUNKSIYASI
-    function triggerGoogleTranslate(langCode, langName) {
-      const googleSelect = document.querySelector('.goog-te-combo');
-      if (googleSelect) {
-        googleSelect.value = langCode;
-        // Google-ga o'zgarish haqida xabar berish (Sayt to'liq tarjima bo'ladi)
-        googleSelect.dispatchEvent(new Event('change'));
-        document.getElementById('active-lang-text').innerText = langName;
-      }
+    // 3. ASOSIY TARJIMA FUNKSIYASI (Ishlamaslikning oldini olish uchun "Polling" bilan)
+    function doTranslate(langCode, langName) {
+      // Google Translate-ning yashirin "select" elementini topish
+      const checkExist = setInterval(function() {
+        const googleSelect = document.querySelector('.goog-te-combo');
+        
+        if (googleSelect) {
+          googleSelect.value = langCode;
+          googleSelect.dispatchEvent(new Event('change'));
+          document.getElementById('active-lang-text').innerText = langName;
+          clearInterval(checkExist); // Topilgach va ishga tushgach to'xtatadi
+        }
+      }, 100); // Har 100ms da tekshiradi (tezkor javob)
+
       toggleProMenu();
     }
 
-    // Tashqariga bosilganda menyuni yopish
-    window.addEventListener('click', function(e) {
-      if (!document.querySelector('.pro-translate-container').contains(e.target)) {
+    // Tashqariga bosilganda yopish
+    window.onclick = function(event) {
+      if (!event.target.closest('.pro-translate-container')) {
         document.getElementById('proLangMenu').classList.remove('active');
       }
-    });
+    }
   </script>
 
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <div id="app"></div>
   <script type="module" src="/src/main.tsx"></script>
