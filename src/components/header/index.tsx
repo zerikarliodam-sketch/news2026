@@ -52,9 +52,9 @@ export function Header() {
         <Link to="/" className="flex gap-2 items-center">
           <div className="h-10 w-10 bg-cover" title="logo" style={{ backgroundImage: "url(/icon.svg)" }} />
           <span className="text-2xl font-brand line-height-none!">
-         <p>Yangiliklar </p>
+         <p>ᑎᗴTᒪIᐯY </p>
             <p className="mt--1">
-              <span className="color-primary-6">Netlivy</span>
+              <span className="color-primary-6">ʏᴀɴɢɪʟɪᴋʟᴀʀ</span>
               <span></span>
             </p>
           </span>
