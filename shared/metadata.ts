@@ -19,10 +19,10 @@ export const columns = {
     zh: "LIKES",
   },
   realtime: {
-    zh: "GLOBAL NEWS",
+    zh: "DUNYO YANGILIK..",
   },
   hottest: {
-    zh: "NEWS",
+    zh: "YANGILIKLAR",
   },
 } as const
 
