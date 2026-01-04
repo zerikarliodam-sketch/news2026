@@ -19,7 +19,7 @@ export function NavBar() {
           "cursor-pointer transition-all",
         )}
       >
-        Ko'proq
+        SEARCH/more..
       </button>
       {fixedColumnIds.map(columnId => (
         <Link
