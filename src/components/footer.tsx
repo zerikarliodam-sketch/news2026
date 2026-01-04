@@ -1,12 +1,10 @@
 export function Footer() {
   return (
     <>
-      <a href={`${Homepage}/blob/main/LICENSE`} target="_blank">MIT LICENSE</a>
+      <a href={`${Homepage}/blob/main/LICENSE`} target="_blank"> NETLIVY TOMONIDAN YARATILDI</a>
       <span>
-        <span>NewsNow © 2024 By </span>
-        <a href={Author.url} target="_blank">
-          {Author.name}
-        </a>
+        <span>NETLIVY NEWS © 2026</span>
+        
       </span>
     </>
   )
