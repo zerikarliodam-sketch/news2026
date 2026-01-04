@@ -19,13 +19,13 @@ export const originSources = {
     home: "https://v2ex.com/",
     sub: {
       share: {
-        title: "最新分享",
+        title: "So'nggi ulashish",
         column: "tech",
       },
     },
   },
   "zhihu": {
-    name: "知乎",
+    name: "Jihu",
     type: "hottest",
     column: "china",
     color: "blue",
