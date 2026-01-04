@@ -16,9 +16,7 @@ export function usePWA() {
       toaster("更新成功，赶快体验吧", {
         action: {
           label: "查看更新",
-          onClick: () => {
-            window.open(`${Homepage}/releases/tag/v${Version}`)
-          },
+          
         },
       })
     } else if (needRefresh) {
