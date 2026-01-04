@@ -55,7 +55,7 @@ export function Header() {
          
             <p className="mt--1">
               <span className="color-primary-6">NETLIVY</span>
-              <span>NEWS</span>
+              <span></span>
             </p>
           </span>
         </Link>
