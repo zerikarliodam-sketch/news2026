@@ -5,41 +5,30 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/icon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Netlivy News" />
-  <meta name="theme-color" content="#F14D42" />
-  <link rel="preload" href="/Baloo2-Bold.subset.ttf" as="font" type="font/ttf" crossorigin>
   <title>Netlivy News</title>
 
   <style>
-    /* 1. OQ PANELNI VA GOOGLE ELEMENTLARINI MAJBURIY YO'QOTISH */
-    #google_translate_element, 
-    .goog-te-banner-frame, 
-    .goog-te-balloon-frame, 
-    #goog-gt-tt, 
-    .skiptranslate, 
-    .goog-te-spinner-pos {
+    /* GOOGLE ELEMENTLARINI YASHIRISH */
+    #google_translate_element, .goog-te-banner-frame, .goog-te-balloon-frame, 
+    #goog-gt-tt, .skiptranslate, .goog-te-spinner-pos {
       display: none !important;
       visibility: hidden !important;
       opacity: 0 !important;
     }
+    body { top: 0 !important; position: static !important; }
 
-    body {
-      top: 0 !important;
-      position: static !important;
-    }
-
-    /* 2. ULTRA PRO DESIGN */
+    /* MODERN UI DESIGN */
     .pro-translate-ui {
       position: fixed;
       top: 15px;
       right: 15px;
-      z-index: 2147483647; /* Eng yuqori daraja */
+      z-index: 2147483647;
+      font-family: sans-serif;
     }
 
     .pro-btn {
       background: rgba(241, 77, 66, 0.3);
       backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: white;
       padding: 10px 18px;
@@ -49,11 +38,8 @@
       align-items: center;
       gap: 10px;
       font-weight: 600;
-      transition: 0.3s;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
-
-    .pro-btn:hover { background: #F14D42; }
 
     .pro-menu {
       position: absolute;
@@ -62,23 +48,30 @@
       background: #18181b;
       border: 1px solid #3f3f46;
       border-radius: 14px;
-      width: 160px;
+      width: 220px; /* Biroz kengroq */
+      max-height: 400px; /* Scroll bo'lishi uchun */
+      overflow-y: auto;
       display: none;
       box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-      overflow: hidden;
     }
 
     .pro-menu.show { display: block; }
 
     .pro-item {
-      padding: 12px 16px;
+      padding: 10px 16px;
       color: #e4e4e7;
       cursor: pointer;
-      transition: 0.2s;
       border-bottom: 1px solid #27272a;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
     }
 
-    .pro-item:hover { background: #27272a; color: #F14D42; }
+    .pro-item:hover { background: #F14D42; color: white; }
+
+    /* Scrollbar dizayni */
+    .pro-menu::-webkit-scrollbar { width: 6px; }
+    .pro-menu::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
   </style>
 </head>
 
@@ -86,54 +79,69 @@
   <div class="pro-translate-ui">
     <button class="pro-btn" onclick="document.getElementById('pMenu').classList.toggle('show')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-      <span id="pLang">Tilni tanlang</span>
+      <span id="pLang">O'zbekcha</span>
     </button>
     <div class="pro-menu" id="pMenu">
-      <div class="pro-item" onclick="runTranslate('uz', 'O\'zbekcha')">O'zbekcha</div>
-      <div class="pro-item" onclick="runTranslate('zh-CN', 'Xitoycha')">Xitoycha</div>
-      <div class="pro-item" onclick="runTranslate('en', 'English')">English</div>
+      <div class="pro-item" onclick="runTranslate('uz', 'O\'zbekcha')">Uzbek <span>UZ</span></div>
+      <div class="pro-item" onclick="runTranslate('zh-CN', 'Xitoycha')">Chinese <span>CN</span></div>
+      <div class="pro-item" onclick="runTranslate('en', 'English')">English <span>US</span></div>
+      <div class="pro-item" onclick="runTranslate('ru', 'Ruscha')">Russian <span>RU</span></div>
+      <div class="pro-item" onclick="runTranslate('tr', 'Turkcha')">Turkish <span>TR</span></div>
+      <div class="pro-item" onclick="runTranslate('ar', 'Arabcha')">Arabic <span>SA</span></div>
+      <div class="pro-item" onclick="runTranslate('de', 'Nemischa')">German <span>DE</span></div>
+      <div class="pro-item" onclick="runTranslate('fr', 'Fransuzcha')">French <span>FR</span></div>
+      <div class="pro-item" onclick="runTranslate('es', 'Ispancha')">Spanish <span>ES</span></div>
+      <div class="pro-item" onclick="runTranslate('it', 'Italyancha')">Italian <span>IT</span></div>
+      <div class="pro-item" onclick="runTranslate('ja', 'Yaponcha')">Japanese <span>JP</span></div>
+      <div class="pro-item" onclick="runTranslate('ko', 'Koreyscha')">Korean <span>KR</span></div>
+      <div class="pro-item" onclick="runTranslate('pt', 'Portugalcha')">Portuguese <span>PT</span></div>
+      <div class="pro-item" onclick="runTranslate('hi', 'Hindcha')">Hindi <span>IN</span></div>
+      <div class="pro-item" onclick="runTranslate('fa', 'Forscha')">Persian <span>IR</span></div>
+      <div class="pro-item" onclick="runTranslate('kk', 'Qozoqcha')">Kazakh <span>KZ</span></div>
+      <div class="pro-item" onclick="runTranslate('ky', 'Qirg\'izcha')">Kyrgyz <span>KG</span></div>
+      <div class="pro-item" onclick="runTranslate('tg', 'Tojikcha')">Tajik <span>TJ</span></div>
+      <div class="pro-item" onclick="runTranslate('az', 'Ozarbayjoncha')">Azerbaijani <span>AZ</span></div>
+      <div class="pro-item" onclick="runTranslate('uk', 'Ukraincha')">Ukrainian <span>UA</span></div>
+      <div class="pro-item" onclick="runTranslate('pl', 'Polyakcha')">Polish <span>PL</span></div>
+      <div class="pro-item" onclick="runTranslate('nl', 'Gollandcha')">Dutch <span>NL</span></div>
+      <div class="pro-item" onclick="runTranslate('sv', 'Shvedcha')">Swedish <span>SE</span></div>
+      <div class="pro-item" onclick="runTranslate('no', 'Norvegcha')">Norwegian <span>NO</span></div>
+      <div class="pro-item" onclick="runTranslate('fi', 'Fincha')">Finnish <span>FI</span></div>
+      <div class="pro-item" onclick="runTranslate('da', 'Datcha')">Danish <span>DK</span></div>
+      <div class="pro-item" onclick="runTranslate('cs', 'Chexcha')">Czech <span>CZ</span></div>
+      <div class="pro-item" onclick="runTranslate('hu', 'Vengercha')">Hungarian <span>HU</span></div>
+      <div class="pro-item" onclick="runTranslate('id', 'Indonezcha')">Indonesian <span>ID</span></div>
+      <div class="pro-item" onclick="runTranslate('vi', 'Vyetnamcha')">Vietnamese <span>VN</span></div>
     </div>
   </div>
 
   <div id="google_translate_element" style="display:none !important;"></div>
 
   <script type="text/javascript">
-    // 1. Google elementini init qilish
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
         pageLanguage: 'zh-CN',
-        includedLanguages: 'uz,en,zh-CN',
         autoDisplay: false
       }, 'google_translate_element');
+
+      // AVTOMATIK O'ZBEK TILIGA O'GIRISH
+      setTimeout(() => {
+        runTranslate('uz', 'O\'zbekcha');
+      }, 1500); // 1.5 soniya kutib avtomatik ishlaydi
     }
 
-    // 2. React/Vite uchun maxsus "Force Translate" funksiyasi
     function runTranslate(code, name) {
-      // Menyu yopish
       document.getElementById('pMenu').classList.remove('show');
-      
-      // Google combobox ni topish va qiymat berish
       const select = document.querySelector('.goog-te-combo');
       if (select) {
         select.value = code;
-        select.dispatchEvent(new Event('change')); // Tarjimani majburlash
+        select.dispatchEvent(new Event('change'));
         document.getElementById('pLang').innerText = name;
-        
-        // Tanlangandan so'ng yana bir bor oq panelni yashirishni tasdiqlash
-        setTimeout(hideGoogleUI, 500);
       } else {
-        // Agar Google hali yuklanmagan bo'lsa, yana urinib ko'rish
         setTimeout(() => runTranslate(code, name), 500);
       }
     }
 
-    function hideGoogleUI() {
-      const banner = document.querySelector('.goog-te-banner-frame');
-      if (banner) banner.style.display = 'none';
-      document.body.style.top = '0';
-    }
-
-    // Tashqariga bosilganda yopish
     window.onclick = (e) => {
       if (!e.target.closest('.pro-translate-ui')) {
         document.getElementById('pMenu').classList.remove('show');
@@ -146,5 +154,4 @@
   <div id="app"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
-
 </html>
